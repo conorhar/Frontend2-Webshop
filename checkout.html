@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>ShopMax</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="icon" type="image/png" href="images/favicon.png"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mukta:300,400,700"> 
+    <link rel="stylesheet" href="fonts/icomoon/style.css">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/magnific-popup.css">
+    <link rel="stylesheet" href="css/jquery-ui.css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+
+
+    <link rel="stylesheet" href="css/aos.css">
+
+    <link rel="stylesheet" href="css/style.css">
+    
+  </head>
+  <body>
+  
+  <div class="site-wrap">
+    
+
+    <div class="site-navbar bg-white py-2">
+
+      <div class="container">
+        <div class="d-flex align-items-center justify-content-between">
+          <div class="logo">
+            <div class="site-logo">
+              <a href="index.html" class="js-logo-clone">ShopMax</a>
+            </div>
+          </div>
+          <div class="main-nav d-none d-lg-block">
+            <nav class="site-navigation text-right text-md-center" role="navigation">
+              <ul class="site-menu js-clone-nav d-none d-lg-block">
+                <li><a href="index.html">Shop</a></li>
+              </ul>
+            </nav>
+          </div>
+          <div class="icons">
+            <a href="cart.html" id="cart-quantity" class="icons-btn d-inline-block bag">
+              <span class="icon-shopping-bag"></span>
+            </a>
+            <a href="#" class="site-menu-toggle js-menu-toggle ml-3 d-inline-block d-lg-none"><span class="icon-menu"></span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="bg-light py-3">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 mb-0"><a href="index.html">Shop</a> <span class="mx-2 mb-0">/</span> <a href="cart.html">Cart</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">Checkout</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="site-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-10">
+            
+            <div class="row mb-5">
+              <div class="col-md-12">
+                <h2 class="h3 mb-3 text-black">Your Order</h2>
+                <div class="p-3 p-lg-5 border">
+                  <table class="table site-block-order-table mb-5">
+                    <thead>
+                      <th></th>
+                      <th>Product</th>
+                      <th>Total</th>
+                    </thead>
+                    <tbody id="output">
+
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-10 mb-5 mb-md-0">
+            <h2 class="h3 mb-3 text-black">Billing Details</h2>
+            <form id="form" class="p-3 p-lg-5 border" action="thankyou.html">
+              <div class="form-group row">
+                <div class="col-md-6">
+                  <label for="c_fname" class="text-black">First Name <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" id="c_fname" name="c_fname">
+                  <span id="error-element-first-name" class="validation"></span>
+                </div>
+                <div class="col-md-6">
+                  <label for="c_lname" class="text-black">Last Name <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" id="c_lname" name="c_lname">
+                  <span id="error-element-last-name" class="validation"></span>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <div class="col-md-12">
+                  <label for="c_address" class="text-black">Address <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" id="c_address" name="c_address" placeholder="Street address">
+                  <span id="error-element-address-1" class="validation"></span>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <input type="text" class="form-control" id="c_address_2" placeholder="Apartment, suite, unit etc. (optional)">
+                <span id="error-element-address-2" class="validation"></span>
+              </div>
+
+              <div class="form-group">
+                <label for="c_country" class="text-black">Country <span class="text-danger">*</span></label>
+                <select id="c_country" class="form-control">
+                  <option value="1">Select a country...</option>    
+                  <option value="2">Sweden</option>    
+                  <option value="3">Algeria</option>    
+                  <option value="4">Afghanistan</option>    
+                  <option value="5">Ghana</option>    
+                  <option value="6">Albania</option>    
+                  <option value="7">Bahrain</option>    
+                  <option value="8">Colombia</option>    
+                  <option value="9">Dominican Republic</option>    
+                </select>
+                <span id="error-element-country" class="validation"></span>
+              </div>
+
+              <div class="form-group row">
+                <div class="col-md-6">
+                  <label for="c_state_country" class="text-black">State / Region <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" id="c_state_country" name="c_state_country">
+                  <span id="error-element-state-region" class="validation"></span>
+                </div>
+                <div class="col-md-6">
+                  <label for="c_postal_zip" class="text-black">Postal / Zip <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" id="c_postal_zip" name="c_postal_zip">
+                  <span id="error-element-postal-zip" class="validation"></span>
+                </div>
+              </div>
+
+              <div class="form-group row mb-5">
+                <div class="col-md-6">
+                  <label for="c_email_address" class="text-black">Email Address <span class="text-danger">*</span></label>
+                  <input type="email" class="form-control" id="c_email_address" name="c_email_address">
+                  <span id="error-element-email" class="validation"></span>
+                </div>
+                <div class="col-md-6">
+                  <label for="c_phone" class="text-black">Phone <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" id="c_phone" name="c_phone" placeholder="Phone Number">
+                  <span id="error-element-phone" class="validation"></span>
+                </div>
+              </div>
+              <input class="btn btn-primary btn-lg btn-block" type="submit" value="Place Order">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="site-footer custom-border-top">
+      <div class="container">
+        <div class="row pt-5 mt-5 text-center">
+          <div class="col-md-12">
+            <p>
+            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank" class="text-primary">Colorlib</a>.Downloaded from <a href="https://themeslab.org/" target="_blank">Themeslab</a>
+            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            </p>
+          </div>
+          
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="js/jquery-3.3.1.min.js"></script>
+  <script src="js/jquery-ui.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/owl.carousel.min.js"></script>
+  <script src="js/jquery.magnific-popup.min.js"></script>
+  <script src="js/aos.js"></script>
+
+  <script src="js/main.js"></script>
+  <script src="js-uppgift-01/checkout.js"></script>
+
+  </body>
+</html>
