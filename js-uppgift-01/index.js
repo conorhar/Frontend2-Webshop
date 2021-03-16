@@ -1,32 +1,36 @@
+//Retrieves product array with fetch API
 fetch('https://fakestoreapi.com/products')
             .then(res=>res.json())
             .then(data=>renderProducts(data))
 
-const cartArray = JSON.parse(localStorage.getItem("cartArray"));
-
 renderCartQuantity();
 
+//Renders amount of products in cart to be shown at top of page
 function renderCartQuantity(){
-    
-    if(cartArray != null){
-        let totalQuantity = getTotalQuantity();
-        
+    let totalQuantity = getTotalQuantity();
+
+    if (totalQuantity != 0){
         output = `<span class="number">${totalQuantity}</span>`
 
         document.getElementById("cart-quantity").innerHTML += output;
     }
 }
 
+//Retrieves cartArray after update and iterates over array to get total cart quantity
 function getTotalQuantity(){
     let updatedCartArray = JSON.parse(localStorage.getItem("cartArray"));
     let quantity = 0;
     
-    updatedCartArray.forEach(item => {
-        quantity += parseInt(item.quantity);
-    });
+    if (updatedCartArray != null){
+        updatedCartArray.forEach(item => {
+            quantity += parseInt(item.quantity);
+        });
+    }
+    
     return quantity;
 }
             
+//Renders HTML code dynamically with product info from fake store API
 function renderProducts(products){
     let output = "";
     
@@ -48,6 +52,7 @@ function renderProducts(products){
     document.getElementById("output").addEventListener("click", purchaseClicked);
 }
    
+//Retrieves all info from clicked product and creates object to be added to local storage
 function purchaseClicked(event){
     if (event.target && event.target.id == "btn-shop"){
         let button = event.target;
@@ -68,10 +73,10 @@ function purchaseClicked(event){
         addtoLocalStorage(productItem);
         alert("Product added to cart")
         renderCartQuantity();
-        // window.location.reload();
     }
 }
 
+//Adds object to array, adds array to local storage as string
 function addtoLocalStorage(productItem){
     let cartArray = [];
 

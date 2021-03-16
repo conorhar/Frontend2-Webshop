@@ -15,6 +15,8 @@ const errorElementPhone = document.getElementById("error-element-phone");
 renderOrderDetails();
 renderCartQuantity();
 
+//Validates form, cannot be submitted unless unless all bools have been set to true
+//If form is valid a user object is created and added to localStorage
 form.addEventListener("submit", (e) => {
     const firstName = document.getElementById("c_fname").value.trim();
     const lastName = document.getElementById("c_lname").value.trim();
@@ -144,21 +146,25 @@ form.addEventListener("submit", (e) => {
     }
 })
 
+//Checks if email address is valid
 function validateEmail(email) {
     const re = /^[^@]+@\w+(\.\w+)+\w$/;
     return re.test(email);
 }
 
+//Checks if input is empty
 function checkIfEmpty(value){
     if (typeof value === 'undefined' || value == null || value == "") return true;
 }
 
+//Renders amount of products in cart to be shown at top of page
 function renderCartQuantity(){
     output = `<span class="number">${getTotalQuantity()}</span>`
 
     document.getElementById("cart-quantity").innerHTML += output;
 }
 
+//Retrieves cartArray and iterates over it to get total cart quantity
 function getTotalQuantity(){
     let quantity = 0;
     
@@ -168,6 +174,7 @@ function getTotalQuantity(){
     return quantity;
 }
 
+//Retrieves product array from localStorage and renders order details at top of page
 function renderOrderDetails(){
     if (cartArray != null){
         let output = "";
@@ -190,6 +197,7 @@ function renderOrderDetails(){
     }
 }
 
+//Calculates total price of products in localStorage array
 function getTotal(){
     let total = 0;
 

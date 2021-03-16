@@ -1,12 +1,14 @@
-const cartArray = JSON.parse(localStorage.getItem("cartArray"));
-
 renderCart();
 renderTotal();
 renderCartQuantity();
 
-document.getElementById("btn-checkout").addEventListener("click", checkCart)
+document.getElementById("btn-checkout").addEventListener("click", checkCart);
+document.getElementById("btn-empty-cart").addEventListener("click", emptyCartClicked);
 
+//User is not allowed to proceed if cart is empty
 function checkCart(event){
+    let cartArray = JSON.parse(localStorage.getItem("cartArray"));
+    
     if (window.localStorage.length == 0 || cartArray.length == 0){
         alert("Cart is empty.")
     }
@@ -15,41 +17,58 @@ function checkCart(event){
     }
 }
 
-
+//Renders amount of products in cart to be shown at top of page
 function renderCartQuantity(){
-    if (cartArray != null){
-        output = `<span class="number">${getTotalQuantity()}</span>`
+    let totalQuantity = getTotalQuantity();
+    let output = "";
 
-        document.getElementById("cart-quantity").innerHTML += output;
+    if (totalQuantity != 0){
+        output = `<span class="icon-shopping-bag"></span>
+                        <span class="number">${totalQuantity}</span>`;
     }
+    else {
+        output = `<span class="icon-shopping-bag"></span>`;
+    }
+
+    document.getElementById("cart-quantity").innerHTML = output;
 }
 
+//Retrieves cartArray and iterates over it to get total cart quantity
 function getTotalQuantity(){
+    let updatedCartArray = JSON.parse(localStorage.getItem("cartArray"));
     let quantity = 0;
     
-    cartArray.forEach(item => {
-        quantity += parseInt(item.quantity);
-    });
+    if (updatedCartArray != null){
+        updatedCartArray.forEach(item => {
+            quantity += parseInt(item.quantity);
+        });
+    }
+    
     return quantity;
 }
 
+//Renders total to be shown at bottom of page
 function renderTotal(){
-    if (cartArray != null){
-        let total = 0;
-    
-    cartArray.forEach((cartItem) => {
-        total += (cartItem.price * cartItem.quantity);
-    });
+    let updatedCartArray = JSON.parse(localStorage.getItem("cartArray"));
+    let total = 0;
+
+    if (updatedCartArray != null){    
+        updatedCartArray.forEach((cartItem) => {
+            total += (cartItem.price * cartItem.quantity);
+        });   
+    }
 
     document.getElementById("order-total").innerText = total.toFixed(2);
-    }
 }
 
+//Renders cart and updates if changes are made
 function renderCart(){
-    if (cartArray != null){
-        let output = "";
+    let updatedCartArray = JSON.parse(localStorage.getItem("cartArray"));
+    let output = "";
+    
+    if (updatedCartArray != null){
 
-        cartArray.forEach((cartItem) => {
+        updatedCartArray.forEach((cartItem) => {
             output += `<tr>
                             <input class="item-id" type="hidden" value="${cartItem.id}">
                             <td>
@@ -58,16 +77,10 @@ function renderCart(){
                             <td class="product-name">
                             <h2 class="h5 text-black">${cartItem.title}</h2>
                             </td>
-                            <td>${parseInt(cartItem.price).toFixed(2)}</td>
+                            <td>${parseFloat(cartItem.price).toFixed(2)}</td>
                             <td>
                             <div class="input-group mb-3" style="min-width: 50px;">
-                                <div class="input-group-prepend">
-                                <button id="change-quantity" class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
-                                </div>
-                                <input type="text" class="quantity-input form-control text-center" value="${cartItem.quantity}" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1" readonly>
-                                <div class="input-group-append">
-                                <button id="change-quantity" class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
-                                </div>
+                                <input id="change-quantity" type="number" min="0" class="quantity-input form-control text-center" value="${cartItem.quantity}" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
                             </div>
     
                             </td>
@@ -75,15 +88,15 @@ function renderCart(){
                             <td><a href="#" id="btn-remove" class="btn btn-primary height-auto btn-sm">X</a></td>
                         </tr>`
         });
-
-        document.getElementById("output").innerHTML = output;
-
-        document.getElementById("output").addEventListener("click", quantityChanged)
+        
+        document.getElementById("output").addEventListener("change", quantityChanged);
         document.getElementById("output").addEventListener("click", removeClicked);
-        document.getElementById("btn-empty-cart").addEventListener("click", emptyCartClicked);
     }
+
+    document.getElementById("output").innerHTML = output;
 }
 
+//Removes clicked product from cart and renders page according to changes
 function removeClicked(event){
     if (event.target && event.target.id == "btn-remove"){
 
@@ -92,9 +105,14 @@ function removeClicked(event){
         let id = cartRow.getElementsByClassName("item-id")[0].value;
         
         removeFromLocalStorage(id);
+
+        renderCart();
+        renderTotal();
+        renderCartQuantity();
     }
 }
 
+//Removes product with matching id from localStorage array
 function removeFromLocalStorage(id){
     let cartArray = [];
 
@@ -104,23 +122,25 @@ function removeFromLocalStorage(id){
     });
 
     localStorage.setItem("cartArray", JSON.stringify(cartArray));
-    window.location.reload();
 }
 
+//Updates localStorage array if product quantity is changed and renders page according to changes
 function quantityChanged(event){
     if (event.target && event.target.id == "change-quantity"){
-        let button = event.target;
-        let tableElement = button.parentElement.parentElement;
-        let cartRow = button.parentElement.parentElement.parentElement.parentElement;
-        let newQuantity = tableElement.getElementsByClassName("quantity-input")[0].value;
+        let input = event.target;
+        let cartRow = input.parentElement.parentElement.parentElement;
+        let newQuantity = input.value;
         let id = cartRow.getElementsByClassName("item-id")[0].value;
 
         updateLocalStorage(id, newQuantity);
 
-        window.location.reload();
+        renderCart();
+        renderTotal();
+        renderCartQuantity();
     }
 }
 
+//Updates localStorage array if quantity is changed
 function updateLocalStorage(id, newQuantity){
     let cartArray = [];
     let updatedCartArray = [];
@@ -137,11 +157,19 @@ function updateLocalStorage(id, newQuantity){
             updatedCartArray.push(item);
     });
 
-    localStorage.setItem("cartArray", JSON.stringify(updatedCartArray));
+    if (updatedCartArray.length == 0){
+        localStorage.clear();
+    }
+    else {
+        localStorage.setItem("cartArray", JSON.stringify(updatedCartArray));
+    }
 }
 
+//Clears localStorage if empty cart is clicked, renders page again according to changes
 function emptyCartClicked(event){
     localStorage.clear();
 
-    window.location.reload();
+    renderCart();
+    renderTotal();
+    renderCartQuantity();
 }

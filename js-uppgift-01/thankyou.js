@@ -4,6 +4,7 @@ const userObj = JSON.parse(localStorage.getItem("user"));
 renderOrderDetails();
 localStorage.clear();
 
+//Retrieves order and user details and renders them on page as order confirmation
 function renderOrderDetails(){
     if (cartArray != null){
         let cartOutput = "";
@@ -33,6 +34,7 @@ function renderOrderDetails(){
     }
 }
 
+//Calculates total price of products in localStorage array
 function getTotal(){
     let total = 0;
 
