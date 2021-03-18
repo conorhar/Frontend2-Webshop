@@ -1,7 +1,12 @@
-//Retrieves product array with fetch API
-fetch('https://fakestoreapi.com/products')
+//Retrieves product array with fetch API (Mahmud's replacement API)
+fetch('https://webacademy.se/fakestore/')
             .then(res=>res.json())
             .then(data=>renderProducts(data))
+
+//Original API (dead link)
+// fetch('https://fakestoreapi.com/products')
+//             .then(res=>res.json())
+//             .then(data=>renderProducts(data))
 
 renderCartQuantity();
 

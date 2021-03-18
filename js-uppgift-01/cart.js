@@ -79,8 +79,8 @@ function renderCart(){
                             </td>
                             <td>${parseFloat(cartItem.price).toFixed(2)}</td>
                             <td>
-                            <div class="input-group mb-3" style="min-width: 50px;">
-                                <input id="change-quantity" type="number" min="0" class="quantity-input form-control text-center" value="${cartItem.quantity}" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+                            <div class="input-group mb-3">
+                                <input style="width: 20px;" id="change-quantity" type="number" min="0" class="quantity-input form-control text-center" value="${cartItem.quantity}" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
                             </div>
     
                             </td>
