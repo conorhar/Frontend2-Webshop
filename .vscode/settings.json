@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/0aeb3dd1-dda2-417f-8790-0f05e9324351/resourceGroups/webshopfend2/providers/Microsoft.Web/sites/webshopfend2",
+    "appService.deploySubpath": "."
+}
